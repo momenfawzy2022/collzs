@@ -1,13 +1,18 @@
 {
   "name": "gaming-award-course",
+  "homepage": "https://momenfawzy2022.github.io/collzs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vit  build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d dist"
+
+    
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
@@ -15,7 +20,6 @@
     "express": "^5.1.0",
     "from": "^0.1.7",
     "gaming-award-course": "file:",
-    "gh-pages": "^6.3.0",
     "gsap": "^3.12.7",
     "import": "^0.0.6",
     "latest": "^0.2.0",
