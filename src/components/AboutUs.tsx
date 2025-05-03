@@ -39,7 +39,7 @@ export const AboutUs = () => {
   },[])
   return (
     <section  className=" bg-blue-50 min-h-dvh w-screen  overflow-hidden overflow-x-hidden relative ">
-        <div className="flex mt-36 flex-col gap-5 items-center">
+        <div className="flex mt-35 flex-col gap-5 items-center">
             <span className="text-xl  lg:text-[15px] text-center font-general">Welome to Revan Conuqer</span>
            < AnimatedTitel  className={`!text-violet-100`} 
            text={`The most popular <b>Conquer</b> private server with epic `}
