@@ -4,18 +4,18 @@ interface ButtonProps {
     text: string;
     backgroundColor?: string;
     rightIcon?: ReactNode;
-    leftIcon?: ReactNode;
+    leftIcon?: ReactNode; className?: string;
 }
 
 export const Buttons = ({
     text,
     backgroundColor = "bg-yellow-300",
     rightIcon,
-    leftIcon
+    leftIcon, className
 }: ButtonProps) => {
     return (
         <button 
-            className={`py-3 px-6 rounded-full flex items-center gap-2 ${backgroundColor} 
+            className={`py-3 px-6 rounded-full flex items-center ${className} gap-2 ${backgroundColor} 
                        hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 
                        focus:ring-yellow-500 transition-all`}
             aria-label={text}
@@ -28,3 +28,4 @@ export const Buttons = ({
         </button>
     )
 }
+export default Buttons;

@@ -31,7 +31,8 @@ export default {
       },
 
       white: {
-        100: "#FFFFFF"
+        100: "#FFFFFF",
+        200: "#808080"
        },
     
     },

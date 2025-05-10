@@ -9,8 +9,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "node server.js"
-
-    
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",

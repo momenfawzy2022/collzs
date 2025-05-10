@@ -43,7 +43,7 @@
   .flex-center {
     @apply flex justify-center items-center;
   }
-
+  
   .animated-titles {
     @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white-100 sm:px-32 md:text-[6rem];
   }
@@ -54,8 +54,17 @@
     transform-origin: 50% 50% -150px !important;
     will-change: opacity, transform;
     perspective: 600px
-
 }
+
+  .nav-hover-btn {
+    @apply relative ms-10 font-general text-xs uppercase text-white-100 after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:ease-[cubic-bezier(0.65_0.05_0.36_1)] hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white-100 cursor-pointer
+  }
+
+  .floting-nav {
+    @apply bg-violet-100 rounded-lg ;
+  }
+
+  
 }
 
 

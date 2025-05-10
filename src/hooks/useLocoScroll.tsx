@@ -32,7 +32,7 @@ const useLocoScroll = () => {
       scrollLeft(value) {
         return arguments.length
           ? locoScrollInstance.scrollTo(value || 0, 0)
-          : locoScrollInstance.scroll.instance?.scroll.x || 0;
+          : locoScrollInstance.instance?.scroll.x || 0;
       },
       getBoundingClientRect() {
         return {

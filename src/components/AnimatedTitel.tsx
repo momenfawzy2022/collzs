@@ -12,7 +12,6 @@ import gsap from "gsap";
               trigger: containerRef.current,
               start: "top bottom",
               scroller: MainContainers,
-              markers: true,
               scrub: true,
               toggleActions: "play none none reverse",
             },
