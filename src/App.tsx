@@ -1,18 +1,25 @@
 import Hero from "./components/Hero";
-import "locomotive-scroll/src/locomotive-scroll.scss";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import { SmoothScrollProvider } from "./context/ScrollProviderContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AboutUs } from "./components/AboutUs";
-import  NavBarr  from "./components/NavBarr";
+import  NavBar  from "./components/NavBarr";
+import DownloadPage from "./components/DownloadPage";
+import Register from "./components/Register";
+
 export const MainContainers = ".main-container"
 
 function App() {
   return(
     <SmoothScrollProvider>
-      <NavBarr />
-      <div className="main-container overflow-hidden">
-        <Hero/>
-          <AboutUs />
-      </div>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<div className="main-container overflow-hidden"><Hero/><AboutUs/></div>} />
+          <Route path="/download" element={<DownloadPage />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
     </SmoothScrollProvider>
   );
 }

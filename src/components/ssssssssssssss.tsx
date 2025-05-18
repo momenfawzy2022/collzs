@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useRef } from 'react';
-import  Buttons  from "./Buttons";
+import  {Buttons}  from "./Buttons";
 import { TiLocation } from 'react-icons/ti';
 import { useSmoothScroll } from "../context/ScrollProviderContext";
 const navItems = ["Nexus", "Forum", "Shop", "Support", "Download", "Register"];
