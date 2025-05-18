@@ -1,25 +1,35 @@
-import Hero from "./components/Hero";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { SmoothScrollProvider } from "./context/ScrollProviderContext";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AboutUs } from "./components/AboutUs";
-import  NavBar  from "./components/NavBarr";
+import { Routes, Route, useLocation } from "react-router-dom";
+import NavBar from "./components/NavBarr";
 import DownloadPage from "./components/DownloadPage";
 import Register from "./components/Register";
+import { useEffect } from "react";
+import Home from "./components/Home";
+import Hero from "./components/Hero";
+import { AboutUs } from "./components/AboutUs";
 
-export const MainContainers = ".main-container"
+export const MainContainers = ".main-container";
 
+// Scroll to top and force re-render on every route change
 function App() {
-  return(
+  const location = useLocation();
+  useEffect(() => {
+    // Scroll to top and trigger LocomotiveScroll update if موجود
+    window.scrollTo(0, 0);
+    setTimeout(() => {
+      const event = new Event('resize');
+      window.dispatchEvent(event);
+    }, 100);
+  }, [location.pathname]);
+  return (
     <SmoothScrollProvider>
-      <Router>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<div className="main-container overflow-hidden"><Hero/><AboutUs/></div>} />
-          <Route path="/download" element={<DownloadPage />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Router>
+      <NavBar />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/download" element={<DownloadPage />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </SmoothScrollProvider>
   );
 }

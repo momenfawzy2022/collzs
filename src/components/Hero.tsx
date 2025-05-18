@@ -3,7 +3,7 @@ import { Buttons } from "./Buttons";
 import { TiLocation, } from "react-icons/ti";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-
+import { useSmoothScroll } from "../context/ScrollProviderContext";
 
 import { MainContainers } from "../App";
 
@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 const Hero =() =>{
+    const { locoScroll } = useSmoothScroll();
     const backgroundvideo = useRef<HTMLVideoElement>(null)
     const totelvideos= 4;
     const [currentIndex , setcurentIndex] = useState(0);
@@ -21,8 +22,8 @@ const Hero =() =>{
     const [loadedVideo , setLoadedVideos] = useState(0);
 //loerd Loding 
     useEffect(()=>{
-      if( loadedVideo === totelvideos -1 ) setIsLoding(false);
-    },[loadedVideo]);
+      if( loadedVideo >= totelvideos ) setIsLoding(false);
+    },[loadedVideo, totelvideos]);
 
 
     const nextindex = (currentIndex +1 ) % totelvideos ; 
@@ -102,6 +103,14 @@ const Hero =() =>{
       });
       return()=> ctx.revert();
     },[]);
+    useEffect(() => {
+      if (locoScroll) {
+        setTimeout(() => {
+          locoScroll.update();
+          locoScroll.scrollTo(0, { duration: 0, disableLerp: true });
+        }, 100);
+      }
+    }, [locoScroll]);
 
     return (
     
@@ -136,6 +145,7 @@ const Hero =() =>{
           src={`/videos/hero-${index}.mp4`} 
           autoPlay loop muted  
           onLoadedData={() =>setLoadedVideos((l)=> l +1 )}
+          onError={() => setLoadedVideos((l) => l + 1)}
           />
         ))}
         <h1 className=" special-font lg:text-[12rem] absolute z-40 bottom-5   

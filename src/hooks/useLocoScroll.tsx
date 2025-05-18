@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import "locomotive-scroll/dist/locomotive-scroll.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import LocomotiveScroll from "locomotive-scroll";
@@ -42,7 +43,9 @@ const useLocoScroll = () => {
           height: window.innerHeight,
         };
       },
-      pinType: scrollEl?.style.transform ? "transform" : "fixed",
+      
+      pinType: scrollEl?.style.transform ? "transform" : "fixed", 
+
     });
 
     const lsUpdate = () => {
@@ -56,6 +59,7 @@ const useLocoScroll = () => {
       ScrollTrigger.removeEventListener("refresh", lsUpdate);
       if (locoScrollInstance) {
         locoScrollInstance.destroy();
+        locoScrollInstance.on("scroll", null);
       }
     };
   }, []);

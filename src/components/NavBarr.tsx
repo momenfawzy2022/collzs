@@ -6,6 +6,7 @@ import { TiLocation } from 'react-icons/ti';
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { useSmoothScroll } from "../context/ScrollProviderContext";
 import { Link } from 'react-router-dom';
+
 gsap.registerPlugin(ScrollTrigger);
 type NavItem = {
   to: string;
@@ -13,7 +14,7 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { to: "/", label: "Home" },
+  { to: "/Home", label: "Home" },
   { to: "/download", label: "Download" },
   { to: "/register", label: "Register" }
 ];
@@ -46,11 +47,11 @@ const NavBar = () => {
   },[isNavVisible]);
   return (
     <header ref={navContainer} 
-    className={`z-50 duration-700 transition-all border-none fixed inset-0 sm:inset-x-6 h-20  bottom-5`}>
+    className={`z-50 duration-700 transition-all border-none fixed inset-0 sm:inset-x-6 h-20  bottom-5 `}>
 
       <nav className="p-4 py-5 z-50 flex items-center justify-between size-full">
         <div className="flex items-center gap-3 ">
-          <img src="./img\zhong_00011.png" alt="logo" className="w-16" />
+          <img src="./img\zhong_00011.png" alt="logo" className="w-20" />
           <Buttons className='!text-violet-100 'rightIcon={<TiLocation/>} text="products" backgroundColor="!bg-blue-100" />
         </div>
         <div className="gap-4 flex items-center">
