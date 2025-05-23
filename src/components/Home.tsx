@@ -6,19 +6,17 @@ gsap.registerPlugin(ScrollTrigger);
 import Hero from './Hero';
 import { AboutUs } from './AboutUs';
 
+
 function Home() {
   return (
-
-<SmoothScrollProvider>
-  <div className="main-container overflow-hidden" data-scroll-container>
-    <div className="scroll-content">
-      <>
-        <Hero />
-        <AboutUs />
-      </>
+        <SmoothScrollProvider>
+        
+    <div className="main-container ">
+      <Hero />
+      <AboutUs />
     </div>
-  </div>
-</SmoothScrollProvider>
+        </SmoothScrollProvider>
+    
   );
 }
 

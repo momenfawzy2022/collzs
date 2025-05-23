@@ -14,7 +14,7 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { to: "/Home", label: "Home" },
+  { to: "/", label: "Home" },
   { to: "/download", label: "Download" },
   { to: "/register", label: "Register" }
 ];

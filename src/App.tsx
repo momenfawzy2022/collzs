@@ -5,7 +5,6 @@ import NavBar from "./components/NavBarr";
 import DownloadPage from "./components/DownloadPage";
 import Register from "./components/Register";
 import { useEffect } from "react";
-import Home from "./components/Home";
 import Hero from "./components/Hero";
 import { AboutUs } from "./components/AboutUs";
 
@@ -26,7 +25,12 @@ function App() {
     <SmoothScrollProvider>
       <NavBar />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<div className="main-container">
+          <div className="scroll-content">
+            <Hero />
+            <AboutUs />
+          </div>
+        </div>} />
         <Route path="/download" element={<DownloadPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
