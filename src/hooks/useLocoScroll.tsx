@@ -1,4 +1,5 @@
 import { useLayoutEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; // 👈 لو بتستخدم React Router
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -6,6 +7,8 @@ import LocomotiveScroll from "locomotive-scroll";
 
 const useLocoScroll = () => {
   gsap.registerPlugin(ScrollTrigger);
+  const location = useLocation(); // ✅
+
   const [locoScroll, setLocoScroll] = useState<LocomotiveScroll | null>(null);
   const [progress, setProgress] = useState(0);
 
@@ -17,8 +20,8 @@ const useLocoScroll = () => {
       el: scrollEl,
       smooth: true,
       multiplier: 1.5,
-      // Removed invalid 'mobile' property
     });
+
     setLocoScroll(locoScrollInstance);
 
     locoScrollInstance.on("scroll", ScrollTrigger.update);
@@ -43,9 +46,7 @@ const useLocoScroll = () => {
           height: window.innerHeight,
         };
       },
-      
-      pinType: scrollEl?.style.transform ? "transform" : "fixed", 
-
+      pinType: scrollEl?.style.transform ? "transform" : "fixed",
     });
 
     const lsUpdate = () => {
@@ -57,14 +58,13 @@ const useLocoScroll = () => {
 
     return () => {
       ScrollTrigger.removeEventListener("refresh", lsUpdate);
-      if (locoScrollInstance) {
-        locoScrollInstance.destroy();
-        locoScrollInstance.on("scroll", null);
-      }
+      locoScrollInstance.destroy();
     };
-  }, []);
+
+  }, [location.pathname]); // 👈 دي أهم حاجة
 
   return { locoScroll, progress };
 };
 
 export default useLocoScroll;
+export { useLocoScroll }; // 👈 تصدير الدالة

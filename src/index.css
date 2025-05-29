@@ -61,7 +61,7 @@
   }
 
   .floting-nav {
-    @apply bg-violet-100 rounded-lg ;
+    @apply bg-violet-100 rounded-lg border ;
   }
 
   

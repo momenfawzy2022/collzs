@@ -7,6 +7,7 @@ import Register from "./components/Register";
 import { useEffect } from "react";
 import Hero from "./components/Hero";
 import { AboutUs } from "./components/AboutUs";
+import Pin from "./components/Pin";
 
 export const MainContainers = ".main-container";
 
@@ -29,6 +30,7 @@ function App() {
           <div className="scroll-content">
             <Hero />
             <AboutUs />
+            <Pin/>
           </div>
         </div>} />
         <Route path="/download" element={<DownloadPage />} />
