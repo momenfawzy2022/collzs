@@ -9,7 +9,9 @@ export default {
         "circular-web": ["circular-web", "sans-serif"],
         "robert-medium": ["robert-medium", "sans-serif"],
         "robert-regular": ["robert-regular", "sans-serif"],
+        
       },
+      
     },
     colors: {
       blue: {
@@ -19,6 +21,7 @@ export default {
         200: "#010101",
         300: "#4FB7DD",
         100: "#FFFFFF",
+        
         
       },
       violet: {
@@ -34,6 +37,7 @@ export default {
         100: "#FFFFFF",
         200: "#808080"
        },
+       
     
     },
   },

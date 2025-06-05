@@ -36,17 +36,39 @@ function Register() {
       className='z-20'
       style={{
         minHeight: '150vh',
-        background: `url('/img/zor.jpg') center/cover no-repeat`,
+        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start', // الفورم قريب من الأعلى
         paddingTop: 50,
+        overflow: 'hidden',
       }}
     >
+      {/* Video background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <source src="/img/header_vid.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+      {/* Form */}
       <form
         onSubmit={handleSubmit}
         style={{
-          background: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/img/conqueronline.jpg') center/cover no-repeat`,
+          background: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('') center/cover no-repeat`,
           borderRadius: 16,
           boxShadow: '0 4px 24px #0001',
           padding: 80,

@@ -12,21 +12,26 @@ const db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'myapp'
-});
+}).promise();
 
-app.post('/api/myapp', (req, res) => {
+app.post('/api/myapp', async (req, res) => {
   const { username, email, password } = req.body;
-  db.query(
-    'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-    [username, email, password],
-    (err, result) => {
-      if (err) {
-        console.error('DB Error:', err); // طباعة الخطأ في الكونسول
-        return res.status(500).json({ message: 'Database error', error: err.sqlMessage });
-      }
-      res.json({ message: 'تم التسجيل بنجاح!' });
-    }
-  );
+
+  // تحقق من أن جميع الحقول موجودة
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: "يرجى إدخال جميع البيانات" });
+  }
+
+  try {
+    await db.query(
+      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+      [username, email, password]
+    );
+    res.json({ message: "تم التسجيل بنجاح!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: err.message || "Database error" });
+  }
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));
