@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import Hero from "./components/Hero";
 import { AboutUs } from "./components/AboutUs";
 import Pin from "./components/Pin";
+import  Contact from "./components/Contact";
+import Footer from "./components/Footer";
+import Slider from "./components/Slider";
 
 export const MainContainers = ".main-container";
 
@@ -31,6 +34,16 @@ function App() {
             <Hero />
             <AboutUs />
             <Pin/>
+            <Slider images={[
+              '/img/version1.png',
+              '/img/version2.png',
+              '/img/version3.png',
+              '/img/version4.png',
+              '/img/version9.png',
+            ]} />
+            <Contact/>
+            <Footer/>
+            
           </div>
         </div>} />
         <Route path="/download" element={<DownloadPage />} />

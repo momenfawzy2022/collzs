@@ -4,28 +4,44 @@ interface ButtonProps {
     text: string;
     backgroundColor?: string;
     rightIcon?: ReactNode;
-    leftIcon?: ReactNode; className?: string;
+    leftIcon?: ReactNode;
+    className?: string;
+    hrf?: string;
 }
 
 export const Buttons = ({
     text,
     backgroundColor = "bg-yellow-300",
     rightIcon,
-    leftIcon, className
+    leftIcon,
+    className,
+    hrf = ""
 }: ButtonProps) => {
+    // Determine if the link is external
+    const isExternal = hrf && /^(http|https):\/\//.test(hrf);
+
     return (
-        <button 
-            className={`py-3 px-6 rounded-full flex items-center ${className} gap-2 ${backgroundColor} 
-                       hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 
-                       focus:ring-yellow-500 transition-all`}
-            aria-label={text}
-        >
-            <span className="font-general text-sl uppercase">
-                {text}
-            </span>
-            {leftIcon}
-            {rightIcon}
-        </button>
+        hrf ? (
+            <a
+                href={hrf}
+                className={`py-3 px-6 rounded-full flex items-center gap-2 ${backgroundColor} ${className} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all`}
+                aria-label={text}
+                {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+                <span className="font-general text-sl uppercase">{text}</span>
+                {leftIcon}
+                {rightIcon}
+            </a>
+        ) : (
+            <button
+                className={`py-3 px-6 rounded-full flex items-center gap-2 ${backgroundColor} ${className} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all`}
+                aria-label={text}
+            >
+                <span className="font-general text-sl uppercase">{text}</span>
+                {leftIcon}
+                {rightIcon}
+            </button>
+        )
     )
 }
 export default Buttons;

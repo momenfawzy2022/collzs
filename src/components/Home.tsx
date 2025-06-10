@@ -5,6 +5,8 @@ import gsap from 'gsap';
 gsap.registerPlugin(ScrollTrigger);
 import Hero from './Hero';
 import { AboutUs } from './AboutUs';
+import Contact from "./Contact";
+import Footer from "./Footer";
 
 
 function Home() {
@@ -14,6 +16,8 @@ function Home() {
     <div className="main-container ">
       <Hero />
       <AboutUs />
+      <Contact />
+      <Footer />
     </div>
         </SmoothScrollProvider>
     
