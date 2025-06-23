@@ -11,6 +11,7 @@ import Pin from "./components/Pin";
 import  Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Slider from "./components/Slider";
+import Stoer from "./components/Stoer";
 
 export const MainContainers = ".main-container";
 
@@ -48,6 +49,7 @@ function App() {
         </div>} />
         <Route path="/download" element={<DownloadPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/Stoer" element={<Stoer />} />
       </Routes>
     </SmoothScrollProvider>
   );

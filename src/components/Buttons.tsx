@@ -7,6 +7,7 @@ interface ButtonProps {
     leftIcon?: ReactNode;
     className?: string;
     hrf?: string;
+    onClick?: () => void;
 }
 
 export const Buttons = ({
@@ -15,7 +16,8 @@ export const Buttons = ({
     rightIcon,
     leftIcon,
     className,
-    hrf = ""
+    hrf = "",
+    onClick
 }: ButtonProps) => {
     // Determine if the link is external
     const isExternal = hrf && /^(http|https):\/\//.test(hrf);
@@ -27,6 +29,7 @@ export const Buttons = ({
                 className={`py-3 px-6 rounded-full flex items-center gap-2 ${backgroundColor} ${className} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all`}
                 aria-label={text}
                 {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                onClick={onClick}
             >
                 <span className="font-general text-sl uppercase">{text}</span>
                 {leftIcon}
@@ -36,6 +39,7 @@ export const Buttons = ({
             <button
                 className={`py-3 px-6 rounded-full flex items-center gap-2 ${backgroundColor} ${className} hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all`}
                 aria-label={text}
+                onClick={onClick}
             >
                 <span className="font-general text-sl uppercase">{text}</span>
                 {leftIcon}
@@ -44,4 +48,5 @@ export const Buttons = ({
         )
     )
 }
+
 export default Buttons;
