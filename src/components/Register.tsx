@@ -2,46 +2,75 @@ import React, { useState } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
 import "locomotive-scroll/dist/locomotive-scroll.css";
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Register() {
-  const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [form, setForm] = useState({ username: '', email: '', password: '', confirmPassword: '', country: '' });
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const res = await fetch('http://localhost:5000/api/myapp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
-      const data = await res.json();
-      setMessage(data.message || 'تم التسجيل بنجاح!');
-    } catch (err) {
-      setMessage('حدث خطأ أثناء التسجيل');
+  e.preventDefault();
+  setError('');
+  if (form.password !== form.confirmPassword) {
+    setError('Passwords do not match');
+    return;
+  }
+  try {
+    console.log("Sending form data:", {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+      country: form.country
+    });
+
+  const res = await fetch('http://localhost:5000/api/test/user', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    username: form.username || "test",
+    email: form.email || "test@test.com",
+    password: form.password || "123456",
+    country: form.country || "Egypt"
+  })
+});
+
+
+    const text = await res.text();
+    console.log('Status:', res.status, 'Response:', text);
+
+    if (!res.ok) {
+      console.warn('خطأ في الاستجابة:', text);
+      setMessage(text || 'حدث خطأ');
+      return;
     }
-  };
+
+    const data = JSON.parse(text);
+    setMessage(data.message || 'تم التسجيل بنجاح!');
+  } catch (error) {
+    console.error('خطأ في الاتصال بالسيرفر:', error);
+    setMessage('حدث خطأ أثناء التسجيل');
+  }
+};
+
+
+  const isFormFilled = form.username && form.email && form.password && form.confirmPassword && form.country;
 
   return (
     <>
-    
     <div
-      className='z-20'
+      className='z-20 relative min-h-screen flex justify-center items-start pt-16 overflow-hidden'
       style={{
-        minHeight: '150vh',
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'flex-start', // الفورم قريب من الأعلى
-        paddingTop: 50,
-        overflow: 'hidden',
+        background: '#101015',
       }}
     >
       {/* Video background */}
@@ -61,59 +90,175 @@ function Register() {
           pointerEvents: 'none',
         }}
       >
-        <source src="/img/header_vid.webm" type="video/webm" />
+        <source src="/img/heaسder_vid.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        style={{
-          background: `linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('') center/cover no-repeat`,
-          borderRadius: 16,
-          boxShadow: '0 4px 24px #0001',
-          padding: 80,
-          minWidth: 500,
-          position: 'relative',
-          zIndex: 2,
-          marginBottom: 50, // مسافة من الأسفل
-          marginTop: 150    // مسافة من الأعلى
-        }}
+        className="relative border border-[#23233a] bg-[#18181c] rounded-2xl shadow-2xl px-8 py-10 w-full max-w-md mx-auto mt-12 animate-fade-in-up"
+        style={{ boxShadow: '0 8px 32px #0004' }}
       >
-        <h2 style={{ textAlign: 'center', marginBottom: 24 }}>Register</h2>
-        <div style={{ marginBottom: 16 }}>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <button type="button" className="text-white-100 hover:text-blue-400 flex items-center gap-1 text-base font-medium">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="rtl:rotate-180"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+            Back
+          </button>
+        </div>
+        <h2 className="text-2xl font-bold text-right text-white-100 mb-2">Create your account</h2>
+        
+        <div className="mb-4">
+          <label htmlFor="username" className="block mb-1 text-sm text-white-100 font-medium">Username</label>
           <input
+            id="username"
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder=""
             value={form.username}
             onChange={handleChange}
-            style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+            className={`w-full p-3 rounded-lg border border-gray-700 bg-[#1c1c1c] focus:outline-none focus:ring-2 focus:ring-blue-700 transition
+              ${form.username ? 'text-white-100' : 'text-white-200'}
+              hover:text-gray-400`}
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="mb-4">
+          <label htmlFor="email" className="block mb-1 text-sm text-white-100 font-medium">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder=""
             value={form.email}
             onChange={handleChange}
-            style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+            className={`w-full p-3 rounded-lg border border-gray-700 bg-[#1c1c1c] focus:outline-none focus:ring-2 focus:ring-blue-700 transition
+              ${form.email ? 'text-white-100' : 'text-white-200'}
+              hover:text-gray-400`}
           />
         </div>
-        <div style={{ marginBottom: 16 }}>
+        <div className="mb-6 relative">
+          <label htmlFor="password" className="block mb-1 text-sm text-white-100 font-medium">Password</label>
           <input
-            type="password"
+            id="password"
+            type={showPassword ? "text" : "password"}
             name="password"
-            placeholder="Password"
+            placeholder=""
             value={form.password}
             onChange={handleChange}
-            style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+            className={`w-full p-3 rounded-lg border border-gray-700 bg-[#1c1c1c] focus:outline-none focus:ring-2 focus:ring-blue-700 transition pr-12
+              ${form.password ? 'text-white-100' : 'text-white-200'}
+              hover:text-gray-400`}
           />
+          <button
+            type="button"
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-white-200 hover:text-blue-400 text-xl focus:outline-none"
+            tabIndex={-1}
+            onClick={() => setShowPassword((v) => !v)}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
         </div>
-        <button type="submit" style={{ width: '100%', padding: 12, borderRadius: 8, background: '#6366f1', color: '#fff', border: 'none', fontWeight: 600 }}>
-          Sign Up
+        <div className="mb-6 relative">
+          <label htmlFor="confirmPassword" className="block mb-1 text-sm text-white-100 font-medium">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type={showConfirmPassword ? "text" : "password"}
+            name="confirmPassword"
+            placeholder=""
+            value={form.confirmPassword}
+            onChange={handleChange}
+            className={`w-full p-3 rounded-lg border border-gray-700 bg-[#1c1c1c] focus:outline-none focus:ring-2 focus:ring-blue-700 transition pr-12
+              ${form.confirmPassword ? 'text-white-100' : 'text-white-200'}
+              hover:text-gray-400`}
+          />
+          <button
+            type="button"
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-white-200 hover:text-blue-400 text-xl focus:outline-none"
+            tabIndex={-1}
+            onClick={() => setShowConfirmPassword((v) => !v)}
+          >
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        </div>
+        <div className="mb-6">
+          <label htmlFor="country" className="block mb-1 text-sm text-white-100 font-medium">Country</label>
+          <select
+            id="country"
+            name="country"
+            value={form.country}
+            onChange={handleChange}
+            className={`w-full p-3 rounded-lg border border-gray-700 bg-[#1c1c1c] focus:outline-none focus:ring-2 focus:ring-blue-700 transition
+              ${form.country ? 'text-white-100' : 'text-white-100'}
+              hover:text-gray-400`}
+            required
+          >
+            <option value="" disabled>Select your country</option>
+            <option value="Egypt">Egypt</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="UAE">UAE</option>
+            <option value="Morocco">Morocco</option>
+            <option value="Algeria">Algeria</option>
+            <option value="Tunisia">Tunisia</option>
+            <option value="Jordan">Jordan</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Qatar">Qatar</option>
+            <option value="Bahrain">Bahrain</option>
+            <option value="Oman">Oman</option>
+            <option value="Lebanon">Lebanon</option>
+            <option value="Palestine">Palestine</option>
+            <option value="Sudan">Sudan</option>
+            <option value="Libya">Libya</option>
+            <option value="Yemen">Yemen</option>
+            <option value="Syria">Syria</option>
+            <option value="Comoros">Comoros</option>
+            <option value="Djibouti">Djibouti</option>
+            <option value="Mauritania">Mauritania</option>
+            <option value="Somalia">Somalia</option>
+            {/* European countries */}
+            <option value="France">France</option>
+            <option value="Germany">Germany</option>
+            <option value="Italy">Italy</option>
+            <option value="Spain">Spain</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Norway">Norway</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Finland">Finland</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Austria">Austria</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Greece">Greece</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Poland">Poland</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Hungary">Hungary</option>
+            <option value="Romania">Romania</option>
+            <option value="Bulgaria">Bulgaria</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Slovenia">Slovenia</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Latvia">Latvia</option>
+            <option value="Lithuania">Lithuania</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Malta">Malta</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          className={`w-full py-3 rounded-lg font-bold text-lg mt-6 transition-all duration-200
+            ${isFormFilled ? 'bg-blue-300 hover:bg-blue-300 text-white-100 cursor-pointer shadow-md' : 'bg-[#393939] text-gray-400 cursor-not-allowed'}`}
+          disabled={!isFormFilled}
+        >
+          Continue
         </button>
-        {message && <div style={{ marginTop: 16, color: '#16a34a', textAlign: 'center' }}>{message}</div>}
+        {message && <div className="mt-4 text-white-100 text-center animate-pulse">{message}</div>}
+        {error && <div className="mt-2 mb-2 text-white-100 text-center font-bold animate-pulse">{error}</div>}
       </form>
     </div>
     </>

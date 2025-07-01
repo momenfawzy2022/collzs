@@ -29,7 +29,7 @@ function Pin() {
       });
 
       let cumlativeOffset = 0;
-      const animationDuration = 2000; // تم التعديل من 1000 إلى 2000 لتوسيع التوقيت
+      const animationDuration = 1000; // قللنا التوقيت لتسريع ظهور الصور
 
       items.forEach((item, idx) => {
         if (!item || !(item instanceof HTMLElement)) return;
@@ -48,8 +48,8 @@ function Pin() {
         const end = `+=${animationDuration}`;
 
         const mainanmation = gsap.timeline({ paused: true, delay: 0.2 })
-          .to(lineContainer, { autoAlpha: 1, height: "6rem", duration: 1 })
-          .to([paragraph, title], { scaleY: 1, autoAlpha: 1, duration: 1 }, "<");
+          .to(lineContainer, { autoAlpha: 1, height: "6rem", duration: 0.4 })
+          .to([paragraph, title], { scaleY: 1, autoAlpha: 1, duration: 0.4 }, "<");
 
         ScrollTrigger.create({
           scroller: MainContainers,
@@ -62,46 +62,50 @@ function Pin() {
             if (fixedImage && image?.getAttribute("src")) {
               // Fade out all hidden images with scale effect
               for (let i = 1; i <= items.length; i++) {
-                gsap.to(`#hidden-img-0${i}`, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
+                gsap.to(`#hidden-img-0${i}`, { autoAlpha: 0, scale: 0.85, duration: 0.15, ease: "power2.inOut" });
               }
               // Fade in the current image with scale up
-              gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power2.inOut" });
+              gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 1, scale: 1, duration: 0.12, ease: "power2.inOut" });
+              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.1, ease: "power2.inOut" });
               fixedImage.src = image.getAttribute("src")!;
-              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.inOut" });
+              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power2.inOut" });
             }
             // إظهار النص مع الصورة
             if (fixedText) {
               fixedText.textContent = textForImage;
-              gsap.to(fixedText, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.inOut" });
+              gsap.to(fixedText, { autoAlpha: 1, y: 0, duration: 0.18, ease: "power2.inOut" });
             }
             mainanmation.play();
           },
           onLeave: () => {
-            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
-            gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
-            if (fixedText) gsap.to(fixedText, { autoAlpha: 0, y: 40, duration: 0.5, ease: "power2.inOut" });
+            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.18, ease: "power2.inOut" });
+            gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 0, scale: 0.85, duration: 0.09, ease: "power2.inOut" });
+            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.09, ease: "power2.inOut" });
+            if (fixedText) gsap.to(fixedText, { autoAlpha: 0, y: 40, duration: 0.18, ease: "power2.inOut" });
             mainanmation.reverse();
           },
           onLeaveBack: () => {
-            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
-            gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
-            if (fixedText) gsap.to(fixedText, { autoAlpha: 0, y: 40, duration: 0.5, ease: "power2.inOut" });
+            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.18, ease: "power2.inOut" });
+            gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 0, scale: 0.85, duration: 0.09, ease: "power2.inOut" });
+            gsap.to(fixedImage, { autoAlpha: 0, scale: 0.85, duration: 0.09, ease: "power2.inOut" });
+            if (fixedText) gsap.to(fixedText, { autoAlpha: 0, y: 40, duration: 0.18, ease: "power2.inOut" });
             mainanmation.reverse();
           },
           onEnterBack: () => {
             if (fixedImage && image?.getAttribute("src")) {
               // Fade out all hidden images with scale effect
               for (let i = 1; i <= items.length; i++) {
-                gsap.to(`#hidden-img-0${i}`, { autoAlpha: 0, scale: 0.85, duration: 0.5, ease: "power2.inOut" });
+                gsap.to(`#hidden-img-0${i}`, { autoAlpha: 0, scale: 0.85, duration: 0.15, ease: "power2.inOut" });
               }
               // Fade in the current image with scale up
-              gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 1, scale: 1, duration: 0.7, ease: "power2.inOut" });
+              gsap.to(`#hidden-img-0${idx + 1}`, { autoAlpha: 1, scale: 1, duration: 0.12, ease: "power2.inOut" });
+              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.1, ease: "power2.inOut" });
               fixedImage.src = image.getAttribute("src")!;
-              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.inOut" });
+              gsap.to(fixedImage, { autoAlpha: 1, scale: 1, duration: 0.18, ease: "power2.inOut" });
             }
             if (fixedText) {
               fixedText.textContent = textForImage;
-              gsap.to(fixedText, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power2.inOut" });
+              gsap.to(fixedText, { autoAlpha: 1, y: 0, duration: 0.18, ease: "power2.inOut" });
             }
             mainanmation.play();
           },
@@ -113,7 +117,7 @@ function Pin() {
       ScrollTrigger.create({
         trigger: "#Pin-last",
         start: "10% top top",
-        end: "+=16000 top",
+        end: "+=9000 top",
         scroller: MainContainers,
         pin: true,
         scrub: 0.5,
@@ -194,7 +198,7 @@ function Pin() {
         style={{
           position: 'fixed',
           top: '50%',
-          left: '50%',
+          left: '48%',
           transform: 'translate(-50%, -50%)',
           zIndex: 20,
           opacity: 0,
