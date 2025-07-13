@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import gsap from 'gsap';
+import { useNavigate } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -66,9 +67,36 @@ const products = [
 ]
 
 const Stoer = () => {
+  const [showForm, setShowForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const username = typeof window !== 'undefined' ? localStorage.getItem('username') : null;
+  const navigate = useNavigate();
+
   const handleBuy = (product: typeof products[0]) => {
-    // هنا يمكنك ربط الشراء الحقيقي أو فتح نافذة دفع
-    alert(`You are trying to buy: ${product.title} for $${product.price}`);
+    if (!username) {
+      navigate('/login?redirect=/Stoer');
+      return;
+    }
+    setSelectedProduct(product);
+    setShowForm(true);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
+    setSelectedProduct(null);
+    setEmail('');
+    setPhone('');
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert('تم إرسال طلب الشراء بنجاح!');
+    setShowForm(false);
+    setSelectedProduct(null);
+    setEmail('');
+    setPhone('');
   };
 
   return (
@@ -96,7 +124,7 @@ const Stoer = () => {
               <div className="text-3xl font-extrabold text-white-100 mb-3">${p.price}</div>
               <button
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white-100 font-bold py-2 rounded-xl mb-2 transition-all duration-200 mt-1 shadow-md hover:shadow-blue-700/30 text-lg"
-                onClick={() => alert(`You are buying: ${p.title} for $${p.price}`)}
+                onClick={() => handleBuy(p)}
               >
                 Buy Now
               </button>
@@ -106,6 +134,25 @@ const Stoer = () => {
             </div>
           ))}
         </div>
+        {showForm && selectedProduct && (
+          <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+            <form onSubmit={handleSubmit} className="bg-[#18181c] p-8 rounded-xl shadow-lg w-full max-w-md relative">
+              <button type="button" onClick={handleCloseForm} className="absolute top-2 right-2 text-white-100 text-xl">&times;</button>
+              <h2 className="text-2xl font-bold text-white-100 mb-6 text-center">تأكيد الشراء</h2>
+              <div className="mb-4 text-white-100 text-center">
+                <div>المنتج: <b>{selectedProduct.title}</b></div>
+                <div>السعر: <b>${selectedProduct.price}</b></div>
+              </div>
+              <label className="block mb-2 text-white-100">اسم المستخدم</label>
+              <input type="text" className="w-full p-3 rounded-lg border border-gray-700 bg-[#ffffff] text-black mb-4" value={username || ''} disabled />
+              <label className="block mb-2 text-white-100">البريد الإلكتروني</label>
+              <input type="email" className="w-full p-3 rounded-lg border border-gray-700 bg-[#ffffff] text-black mb-4" value={email} onChange={e => setEmail(e.target.value)} required />
+              <label className="block mb-2 text-white-100">رقم الهاتف</label>
+              <input type="tel" className="w-full p-3 rounded-lg border border-gray-700 bg-[#ffffff] text-black mb-4" value={phone} onChange={e => setPhone(e.target.value)} required />
+              <button type="submit" className="w-full py-3 rounded-lg font-bold text-lg mt-2 transition-all duration-200 bg-blue-300 hover:bg-blue-400 text-white">تأكيد الشراء</button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   )

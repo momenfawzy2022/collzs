@@ -1,6 +1,11 @@
 import NavBar from "./NavBarr";
+
+import "locomotive-scroll/dist/locomotive-scroll.css";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import gsap from 'gsap';
 import { TiLocation } from "react-icons/ti";
 import { Buttons } from "./Buttons";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function DownloadPage() {
   return (

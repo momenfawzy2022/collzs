@@ -2,8 +2,12 @@ import "locomotive-scroll/dist/locomotive-scroll.css";
 import { SmoothScrollProvider } from "./context/ScrollProviderContext";
 import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBarr";
+import LoginForm from "./components/LoginForm";
 import DownloadPage from "./components/DownloadPage";
 import Register from "./components/Register";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+import OTPVerification from "./components/OTPVerification";
 import { useEffect } from "react";
 import Hero from "./components/Hero";
 import { AboutUs } from "./components/AboutUs";
@@ -12,6 +16,7 @@ import  Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Slider from "./components/Slider";
 import Stoer from "./components/Stoer";
+import Preregister from "./components/preregister";
 
 export const MainContainers = ".main-container";
 
@@ -47,9 +52,14 @@ function App() {
             
           </div>
         </div>} />
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/download" element={<DownloadPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/otp" element={<OTPVerification />} />
         <Route path="/Stoer" element={<Stoer />} />
+        <Route path="/preregister" element={<Preregister />} />
       </Routes>
     </SmoothScrollProvider>
   );

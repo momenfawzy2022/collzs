@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
 import "locomotive-scroll/dist/locomotive-scroll.css";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -33,7 +35,7 @@ function Register() {
       country: form.country
     });
 
-  const res = await fetch('http://localhost:5000/api/test/user', {
+  const res = await fetch('http://localhost:5000/api/test/users', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
@@ -56,6 +58,14 @@ function Register() {
 
     const data = JSON.parse(text);
     setMessage(data.message || 'تم التسجيل بنجاح!');
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      window.location = undefined;
+    }, 1000);
+    // إعادة التوجيه إلى صفحة preregister مع تمرير justRegistered
+    window.location.href = '/preregister?justRegistered=1';
+    // إذا كنت تستخدم useNavigate:
+    // navigate('/preregister', { state: { justRegistered: true } });
   } catch (error) {
     console.error('خطأ في الاتصال بالسيرفر:', error);
     setMessage('حدث خطأ أثناء التسجيل');
@@ -179,6 +189,7 @@ function Register() {
           >
             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
+          
         </div>
         <div className="mb-6">
           <label htmlFor="country" className="block mb-1 text-sm text-white-100 font-medium">Country</label>
@@ -257,6 +268,16 @@ function Register() {
         >
           Continue
         </button>
+        <div className="text-right mt-2">
+  <div className="text-right mt-2">
+  <Link
+    to="/forgot-password"
+    className="text-sm text-white-100 hover:underline transition duration-200"
+  >
+    هل نسيت كلمة المرور؟
+  </Link>
+</div>
+</div>
         {message && <div className="mt-4 text-white-100 text-center animate-pulse">{message}</div>}
         {error && <div className="mt-2 mb-2 text-white-100 text-center font-bold animate-pulse">{error}</div>}
       </form>

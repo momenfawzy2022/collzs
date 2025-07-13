@@ -26,23 +26,21 @@ function PaginationItem({
         <h4 className="title text-lg lg:text-xl font-extrabold text-violet-150 mb-1">{text}</h4>
         <div className="h-auto mt-2 flex items-center justify-between">
           <p className="max-w-64 text-sm lg:text-lg font-circular-web text-violet-150">{desc}</p>
-          <div style={{ position: 'absolute', width: 0, height: 0, opacity: 0, pointerEvents: 'none' }}>
-            {/* جميع الصور تظهر هنا بشكل مخفي مع أنيميشن fade-in/fade-out */}
-            {img && (
-              <img
-                src={img}
-                alt="logo"
-                className="pagination-hidden-img"
-                style={{
-                  display: 'block',
-                  opacity: 0,
-                  transition: 'opacity 0.5s',
-                  position: 'absolute',
-                  zIndex: -1,
-                }}
-              />
-            )}
-          </div>
+          {img && (
+            <img
+              src={img}
+              alt="logo"
+              className="pagination-img"
+              style={{
+                width: '48px',
+                height: '48px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                marginLeft: '16px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

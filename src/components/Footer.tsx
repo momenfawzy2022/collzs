@@ -21,8 +21,8 @@ const Footer = () => {
         </p>
 
         <div className="flex justify-center gap-4 md:justify-start">
-          {links.map((link) => (
-            <a key={link} href={link.href} target="_blank" rel="noopener noreferrer"
+          {links.map((link, idx) => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer"
             className="text-blue-200 transition-colors duration-500 ease-in-out hover:text-blue-100">
               {link.icon}
             </a>

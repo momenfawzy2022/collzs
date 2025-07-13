@@ -4,7 +4,6 @@ import { TiLocation, } from "react-icons/ti";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useSmoothScroll } from "../context/ScrollProviderContext";
-
 import { MainContainers } from "../App";
 
 gsap.registerPlugin(ScrollTrigger);
