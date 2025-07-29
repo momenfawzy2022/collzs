@@ -3,37 +3,41 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 const milestones = [
 	{
-		count: 2000,
+		count: 100,
 		rewards: [
 			
 			{ label: " 10 Item-Super", img: "/img/imgItmes/3001280.png" },
 		],
 	},
 	{
-		count: 5000,
+		count: 200,
 		rewards: [
 			{ label: "Vip(4)-1Day", img: "/img/imgItmes/741819.png" },
 			{ label: "300 CPs (B)", img: "/img/cp.png" },
 		],
 	},
 	{
-		count: 10000,
+		count: 500,
 		rewards: [
 			{ label: "5000 Cps (B)", img: "/img/imgItmes/3300365.png" },
 			
 		],
 	},
 	{
-		count: 20000,
+		count: 1000,
 		rewards: [{ label: "Stone 2 (B)", img: "/img/imgItmes/730006.png" }],
 	},
 ];
+
+// استخراج أكبر milestone ليكون هو الحد الأقصى للشريط
+const maxMilestone = Math.max(...milestones.map(m => m.count));
 
 export default function Preregister() {
 // قيمة الحجز تبدأ من 0 وتزيد ديناميكياً
 const [totalReservation, setTotalReservation] = useState(0);
 const [progress, setProgress] = useState(0);
-const targetProgress = totalReservation >= 20000 ? 100 : (totalReservation / 20000) * 100;
+// حساب نسبة التقدم بناءً على العدد الحالي وأكبر milestone
+const targetProgress = totalReservation >= maxMilestone ? 100 : (totalReservation / maxMilestone) * 100;
 const progressRef = useRef<HTMLDivElement>(null);
 const [showRules, setShowRules] = useState(false);
 const [reserveAnim, setReserveAnim] = useState(false);
@@ -126,7 +130,7 @@ useEffect(() => {
 				className="absolute -left-20 top-0 w-1/2 h-full bg-cover bg-center transform-gpu transition-transform duration-1000 hover:scale-110 z-10"
 				style={{
 					backgroundImage: "url('/public/img/classe/zy-ys2.webp')",
-					clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)"
+					clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0% 100%)"
 				}}
 			/>
 			{/* خلفية الجانب الأيمن */}
@@ -134,7 +138,7 @@ useEffect(() => {
 				className="absolute right-0 top-0 w-1/2 h-full bg-cover bg-center transform-gpu transition-transform duration-1000 hover:scale-110 z-10"
 				style={{
 					backgroundImage: "url('/img/classe/zy-hhj.webp')",
-					clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0% 100%)"
+					clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0% 100%)"
 				}}
 			/>
 			{/* Overlay مع تأثيرات */}
@@ -150,7 +154,7 @@ useEffect(() => {
 				{/* زر القوانين */}
 				<button
 					onClick={() => setShowRules(true)}
-					className="absolute top-4 right-8 bg-[#18181c]/80 border-2 border-[#b45309] text-[#b45309] font-bold px-6 py-2 rounded-full shadow hover:bg-[#b45309] hover:text-white-100 transition-all duration-200 z-20"
+					className="absolute top-4 right-8 bg-[#18181c]/80 border-2 border-[#fef2f2] text-[#fffbf8] font-bold px-6 py-2 rounded-full shadow hover:bg-[#b45309] hover:text-white-100 transition-all duration-200 z-20"
 				>
 					Rules
 				</button>
@@ -178,7 +182,7 @@ useEffect(() => {
 				)}
 				{/* العنوان */}
 				<h1 className="text-5xl md:text-6xl font-extrabold text-[#7c2d12] mb-2 drop-shadow-lg text-center tracking-tight animate-fadeIn">
-					WarringLands_EU <br />
+				Cyphern_EU <br />
 					<span className="text-[#b45309]">New Server Reservation</span>
 				</h1>
 				<div className="bg-[#b45309] text-white-100 px-8 py-2 rounded-full font-bold text-2xl mb-2 shadow-lg animate-pulse tracking-wide animate-fadeIn">
@@ -213,14 +217,14 @@ useEffect(() => {
 								<div key={m.count} className="flex flex-col items-center">
 									<div
 										className={`w-4 h-10 ${
-											progress >= (m.count / 20000) * 100
+											progress >= (m.count / maxMilestone) * 100
 												? "bg-[#b45309] scale-110 shadow-lg"
 												: "bg-gray-300"
 										} rounded-full border-2 border-white transition-all duration-500`}
 									/>
 									<span
 										className={`text-xs font-bold mt-1 ${
-											progress >= (m.count / 20000) * 100
+											progress >= (m.count / maxMilestone) * 100
 												? "text-[#b45309] scale-110"
 												: "text-gray-400"
 										}`}

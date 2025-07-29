@@ -100,6 +100,13 @@ function Register() {
           pointerEvents: 'none',
         }}
       >
+      <div 
+				className="absolute -left-20 top-0 w-1/2 h-full bg-cover bg-center transform-gpu transition-transform duration-1000 hover:scale-110 z-10"
+				style={{
+					backgroundImage: "url('/public/img/classe/zy-ys2.webp')",
+					clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)"
+				}}
+			/>
         <source src="/img/heaسder_vid.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>

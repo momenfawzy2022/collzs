@@ -9,61 +9,89 @@ gsap.registerPlugin(ScrollTrigger);
 
 const products = [
   {
-    title: 'VIP Token (30 DAY Token)',
-    desc: 'Use it to gain 30 day benifits of VIP.',
+    title: 'VIP 4 Token (7 DAY)',
+    desc: 'Drop Cps 1-3',
+    price: 7,
+    img: '/img/imgItmes/vip png.png',
+    bg: 'bg-[#0a0a1a]'
+  },
+  {
+    title: 'VIP 4 Token (30 DAY)',
+    desc: 'Drop Cps 1-3',
     price: 20,
-    img: '/img/vip.png',
+    img: '/img/imgItmes/vip png.png',
     bg: 'bg-[#0a0a1a]'
   },
   {
-    title: 'VIP Token (7 DAY Instant)',
-    desc: 'Direct active 7 days VIP.',
-    price: 7,
-    img: '/img/vip.png',
+    title: 'VIP 6 Token (7 DAY)',
+    desc: 'Drop Cps 2-4',
+    price: 10,
+    img: '/img/imgItmes/vip png.png',
+    bg: 'bg-[#0a0a1a]'
+  },
+    {
+    title: 'VIP 6 Token (30 DAY)',
+    desc: 'Drop Cps 2-4',
+    price: 30,
+    img: '/img/imgItmes/vip png.png',
+    bg: 'bg-[#0a0a1a]'
+  },
+    {
+    title: 'VIP 4 Full (Permanently)',
+    desc: 'Drop Cps 1-3\nSharing player 1',
+    price: 50,
+    img: '/img/imgItmes/vip png.png',
     bg: 'bg-[#0a0a1a]'
   },
   {
-    title: '10 Funds',
-    desc: 'Can change color for 10 Funds.',
-    price: 10,
-    img: '/img/classe/Adobe Express - file (1).png',
+    title: 'VIP 6 Full (Permanently)',
+    desc: 'Drop Cps 2-4\nSharing player 2 \n Token OutoHunt ',
+    price: 80,
+    img: '/img/imgItmes/vip png.png',
     bg: 'bg-[#0a0a1a]'
   },
     {
-    title: '10 Funds',
-    desc: 'Can change color for 10 Funds.',
-    price: 10,
-    img: '/img/classe/Adobe Express - file (1).png',
-    bg: 'bg-[#0a0a1a]'
-  },
-    {
-    title: 'VIP Token (7 DAY Instant)',
-    desc: 'Direct active 7 days VIP.',
-    price: 7,
-    img: '/img/vip.png',
-    bg: 'bg-[#0a0a1a]'
-  },
-  {
-    title: '10 Funds',
-    desc: 'Can change color for 10 Funds.',
-    price: 10,
-    img: '/img/classe/Adobe Express - file (1).png',
-    bg: 'bg-[#0a0a1a]'
-  },
-    {
-    title: '10 Funds',
-    desc: 'Can change color for 10 Funds.',
-    price: 10,
-    img: '/img/classe/Adobe Express - file (1).png',
+    title: ' Full (Chi)',
+    desc: 'You can use it to unlock Chi levels at 400.',
+    price: 50,
+    img: '/img/imgItmes/3347307.png',
     bg: 'bg-[#0a0a1a]'
   },
       {
-    title: '10 Funds',
-    desc: 'Can change color for 10 Funds.',
-    price: 10,
-    img: '/img/classe/Adobe Express - file (1).png',
+    title: 'Full (Jiang Hu)',
+    desc: 'You can use it to unlock Jiang Hu levels 9 at Eipc.',
+    price: 50,
+    img: '/img/imgItmes/3347309.png',
     bg: 'bg-[#0a0a1a]'
-  }
+  },
+   {
+    title: '25,000 Cps',
+    desc: 'Conquer Points',
+    price: 10,
+    img: '/img/imgItmes/z555.png',
+    bg: 'bg-[#0a0a1a]'
+    },
+     {
+    title: '50,000 Cps',
+    desc: 'Conquer Points',
+    price: 15,
+    img: '/img/imgItmes/z555.png',
+    bg: 'bg-[#0a0a1a]'
+    },
+    {
+      title: '100,000 Cps',
+      desc: 'Conquer Points',
+      price: 25,
+      img: '/img/imgItmes/z555.png',
+      bg: 'bg-[#0a0a1a]'
+      },
+      {
+        title: '200,000 Cps',
+        desc: 'Conquer Points',
+        price: 40,
+        img: '/img/imgItmes/z555.png',
+        bg: 'bg-[#0a0a1a]'
+        },
 ]
 
 const Stoer = () => {
@@ -71,6 +99,7 @@ const Stoer = () => {
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [showImageModal, setShowImageModal] = useState(false); // for modal
   const username = typeof window !== 'undefined' ? localStorage.getItem('username') : null;
   const navigate = useNavigate();
 
@@ -98,18 +127,51 @@ const Stoer = () => {
     setEmail('');
     setPhone('');
   };
+  
 
   return (
     <div className="main-container">
       <div className="min-h-screen bg-gradient-to-b from-[#181828] to-[#0a0a1a] pb-30 pt-35">
-        <div className="w-full h-64 flex flex-col items-center justify-center bg-gradient-to-b from-blue-900/80 to-[#0a0a1a] relative rounded-b-3xl shadow-lg mb-8">
-        {/* صورة خلفية خلف العنوان مباشرة */}
-        <img src="/img/bg3.jpg" alt="background" className="absolute  top-20 w-full h-96 object-cover opacity-40 border-spacing-y-3.5 rounded-b-3xl z-0" />
-        <h1 className="text-5xl md:text-6xl font-extrabold text-white-100 mt-2 mb-2 tracking-tight drop-shadow-xl uppercase relative z-10">Store Market</h1>
-        <div className="flex gap-2 text-white-100 text-base opacity-90 font-medium relative z-10">
+        <div className="w-full h-64 flex flex-col items-center justify-center  to-[#0a0a1a] relative rounded-b-3xl shadow-lg mb-8">
+        {/* Slider خلف العنوان مباشرة */}
+        {(() => {
+          // Slider state/hooks
+          const sliderImages = [
+            '/img/مشروع جديد (1).png',
+            '/img/مشروع جديد (3).png',
+            '/img/مشروع جديد (4).png',
+            
+          ];
+          const [current, setCurrent] = React.useState(0);
+          React.useEffect(() => {
+            const interval = setInterval(() => {
+              setCurrent((prev) => (prev + 1) % sliderImages.length);
+            }, 1500);
+            return () => clearInterval(interval);
+          }, []);
+          return (
+            <img
+              src={sliderImages[current]}
+              alt="background slider"
+              className="absolute top-20 left-1/2 -translate-x-1/2 object-cover opacity-80 border-spacing-y-3.5 rounded-b-3xl z-0 transition-all duration-1000"
+              style={{ width: '1050px', height: '100px', transition: 'opacity 1s', objectFit: 'cover' }}
+            />
+          );
+        })()}
+        {/* Icon absolutely positioned and separated from slider/title */}
+        <div style={{ position: 'absolute', right: 300, bottom: 80, zIndex: 30 }}>
+          <img
+            src="/img/logo2.png"
+            alt="info"
+            className="w-[80px] h-[80px] cursor-pointer hover:scale-110 transition animate-pulse"
+            onClick={() => setShowImageModal(true)}
+          />
+        </div>
+        <h1 className="text-4xl md:text-4xl font-extrabold text-white-100 mt-2 mb-2 tracking-tight drop-shadow-xl uppercase relative z-10">Store Market</h1>
+        <div className="flex gap-2 text-white-100 text-base opacity-100 font-medium relative z-10">
           <span className="hover:text-blue-400 cursor-pointer transition">Home</span>
           <span className="mx-1">/</span>
-          <span className="text-blue-300">Store Market</span>
+          <span className="text-white-100">Store Market</span>
         </div>
       </div>
         <div className="w-full flex flex-wrap justify-center gap-10 mt-[-80px] z-10 relative">
@@ -118,8 +180,12 @@ const Stoer = () => {
               <div className="flex items-center justify-center w-full h-40 mb-4">
                 <img src={p.img} alt={p.title} className="object-contain h-32 w-32 drop-shadow-lg group-hover:scale-110 transition-transform duration-300" />
               </div>
-              <h2 className="text-xl md:text-2xl font-bold text-white-100 mb-2 text-center group-hover:text-violet-300 transition">{p.title}</h2>
-              <p className="text-white-100 text-sm opacity-90 mb-4 text-center min-h-[40px]">{p.desc}</p>
+              <h2 className="text-xl md:text-2xl font-bold text-white-100 mb-2 text-center group-hover:text-blue-300 transition">{p.title}</h2>
+              <div className="text-white-100 text-sm opacity-90 mb-4 text-center min-h-[40px]">
+                {p.desc.split('\n').map((line, idx) => (
+                  <div key={idx}>{line}</div>
+                ))}
+              </div>
               <div className="w-full border-t border-[#23233a] my-3"></div>
               <div className="text-3xl font-extrabold text-white-100 mb-3">${p.price}</div>
               <button
@@ -134,6 +200,7 @@ const Stoer = () => {
             </div>
           ))}
         </div>
+        
         {showForm && selectedProduct && (
           <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
             <form onSubmit={handleSubmit} className="bg-[#18181c] p-8 rounded-xl shadow-lg w-full max-w-md relative">
@@ -153,6 +220,26 @@ const Stoer = () => {
             </form>
           </div>
         )}
+      {showImageModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-start justify-center pt-10 z-50">
+          <div className="bg-[#18181c] p-6 rounded-xl shadow-lg relative max-w-lg w-full flex flex-col items-center pt-12">
+            <button
+              type="button"
+              onClick={() => setShowImageModal(false)}
+              className="absolute top-5 right-5 text-white-100 text-2xl font-bold hover:text-blue-300 z-50"
+              aria-label="Close"
+              style={{zIndex: 100, pointerEvents: 'auto', background: '#222', borderRadius: '50%', width: 40, height: 40, }}
+            >
+              &times;
+            </button>
+            <img
+              src="/img/z150.jpg"
+              alt="Modal Preview"
+              className="max-w-full max-h-[80vh] rounded-lg border border-gray-700"
+            />
+          </div>
+        </div>
+      )}
       </div>
     </div>
   )
